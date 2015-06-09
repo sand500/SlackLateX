@@ -11,7 +11,7 @@ npm install request
 npm install websocket
 ```
 
-Put your token in the secret.txt file 
+Create a secret.txt file and put your token in it
 
 Start bot by running `node bot.js` or `nodejs bot.js`
 
