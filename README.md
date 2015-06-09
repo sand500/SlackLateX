@@ -11,7 +11,7 @@ npm install request
 npm install websocket
 ```
 
-Create a secret.txt file and put your token in it
+Create a secret.txt file in the bot directory and put your slack token in it
 
 Start bot by running `node bot.js` or `nodejs bot.js`
 
