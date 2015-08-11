@@ -9,6 +9,7 @@ var latex = {};
 var fs = require('fs');
 fs.readFile('secret.txt','utf8',function (err, data) {
     global.token=data;
+    global.token = global.token.replace(/[\n\r]/g,"");
     getWebSocket();
 });
 
