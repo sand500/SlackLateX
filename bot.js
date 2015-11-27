@@ -47,56 +47,10 @@ function createWS(url) {
 
         connection.on('message', function(message) {
             if (message.type === 'utf8') {
-                var mObj = JSON.parse(message.utf8Data);
-
-                console.log("Received: '" + message.utf8Data + "'");
-                console.log(mObj.type+"\n");
-
-                if(mObj.type==='message'){
-                    
-                        console.log("\t"+mObj.channel+"\n");
-                        console.log("\t"+mObj.user+"\n");
-                        console.log("\t"+mObj.text+"\n");
-                        console.log("\t"+escape(mObj.text)+"\n");
-
-                        if(mObj.text==='..ping'){
-                            pong(mObj.channel,"pong");
-                        }
-                        if(latex[mObj.user+mObj.channel]==true && mObj.text[0]==='$' && mObj.text[mObj.text.length-1]==='$' && mObj.text.length>1) {
-                            deleteMessage(mObj.ts,mObj.channel);
-                            postLatex(mObj.channel,mObj.text.substring(1,mObj.text.length-1).replace('&amp;','&'));
-                            console.log('Converting to latex: ' + mObj.text);
-                        }
-                        
-                    
-                        if(mObj.text==='..startLatex') {
-                            latex[mObj.user+mObj.channel]=true;
-                            console.log('Enable latex for ' + mObj.user+mObj.channel);
-                        }
-                        if(mObj.text==='..stopLatex') {
-                            latex[mObj.user+mObj.channel]=false;
-                            console.log('disable latex for ' + mObj.user+mObj.channel);
-
-                        }
-
-                    }
+                handleMessage(JSON.parse(message.utf8Data));
             }
 
         });
-
-        function pong(channel,text){
-            if (connection.connected) {
-                var message2send={};
-                message2send.text=text;
-                message2send.channel=channel;
-                message2send.id=i;
-                message2send.type="message";
-                connection.sendUTF( JSON.stringify(message2send));
-                i+=1;
-                return i;
-            }
-        }
-
     });
     client.connect(url);
     console.log("hey?");
@@ -127,3 +81,58 @@ function postLatex(channel,text) {
         });
 }
 
+
+function handleMessage(mObj){
+
+    console.log("Received: '" + message.utf8Data + "'");
+    console.log(mObj.type+"\n");
+
+    if(mObj.type==='message'){
+        
+        console.log("\t"+mObj.channel+"\n");
+        console.log("\t"+mObj.user+"\n");
+        console.log("\t"+mObj.text+"\n");
+        console.log("\t"+escape(mObj.text)+"\n");
+
+        if(mObj.text==='..ping'){
+            pong(mObj.channel,"pong");
+        }
+        if(latex[mObj.user+mObj.channel]==true && mObj.text[0]==='$' && mObj.text[mObj.text.length-1]==='$' && mObj.text.length>1) {
+            deleteMessage(mObj.ts,mObj.channel);
+			postLatex(mObj.channel,replaceAll(mObj.text.substring(1,mObj.text.length-1),'&amp;','&'));
+
+            console.log('Converting to latex: ' + mObj.text);
+        }
+        
+        if(mObj.text==='..startLatex') {
+            latex[mObj.user+mObj.channel]=true;
+            console.log('Enable latex for ' + mObj.user+mObj.channel);
+        }
+
+        if(mObj.text==='..stopLatex') {
+            latex[mObj.user+mObj.channel]=false;
+            console.log('disable latex for ' + mObj.user+mObj.channel);
+        }
+
+    }
+
+}
+function pong(channel,text){
+    if (connection.connected) {
+        var message2send={};
+        message2send.text=text;
+        message2send.channel=channel;
+        message2send.id=i;
+        message2send.type="message";
+        connection.sendUTF( JSON.stringify(message2send));
+        i+=1;
+        return i;
+    }
+}
+
+function escapeRegExp(str) {
+	return str.replace(/([.*+?^=!:${}()|[]\/\])/g, "\$1");
+}
+function replaceAll(str, find, replace) {
+	return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
