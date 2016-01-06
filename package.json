@@ -1,0 +1,17 @@
+{
+  "name": "slacklatex",
+  "version": "1.0.0",
+  "description": "Bot to convert LateX code in messages into images",
+  "main": "bot.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sand500/SlackLateX.git"
+  },
+  "author": "Ssandeep Vijayasekar",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.2",
+    "request": "^2.67.0",
+    "websocket": "^1.0.22"
+  }
+}
