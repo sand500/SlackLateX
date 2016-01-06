@@ -13,7 +13,7 @@ fs.readFile('secret.txt','utf8',function (err, data) {
     getWebSocket();
 });
 
-//gets the websocket url 
+//gets the websocket url
 function getWebSocket(){
     request('https://slack.com/api/rtm.start?token='+global.token+'&pretty=1', function (error, response, body) {
          //console.log(response.url);
@@ -72,7 +72,7 @@ function postLatex(channel,text) {
     var urlBase= 'http://latex.codecogs.com/png.latex?%5Cdpi%7B300%7D%20'+encodeURIComponent(text);
 
     var dURL = "https://slack.com/api/chat.postMessage?token="+global.token+"&channel="+channel+"&text=%20&attachments=%5B%7B%22fallback%22%3A%22.%22%2C%22color%22%3A%20%22%2336a64f%22%2C%22image_url%22%3A%22" + encodeURIComponent(urlBase)+"%22%7D%5D&pretty=1";
-    
+
     request(dURL, function (error, response, body) {
          //console.log(response.url);
          if (!error && response.statusCode == 200) {
@@ -88,7 +88,7 @@ function handleMessage(mObj){
     console.log(mObj.type+"\n");
 
     if(mObj.type==='message'){
-        
+
         console.log("\t"+mObj.channel+"\n");
         console.log("\t"+mObj.user+"\n");
         console.log("\t"+mObj.text+"\n");
@@ -103,7 +103,7 @@ function handleMessage(mObj){
 
             console.log('Converting to latex: ' + mObj.text);
         }
-        
+
         if(mObj.text==='..startLatex') {
             latex[mObj.user+mObj.channel]=true;
             console.log('Enable latex for ' + mObj.user+mObj.channel);
