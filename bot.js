@@ -13,6 +13,8 @@ fs.readFile('secret.txt','utf8',function (err, data) {
     getWebSocket();
 });
 
+var connection = null;
+
 //gets the websocket url 
 function getWebSocket(){
     request('https://slack.com/api/rtm.start?token='+global.token+'&pretty=1', function (error, response, body) {
@@ -34,7 +36,8 @@ function createWS(url) {
         console.log('Connect Error: ' + error.toString());
     });
 
-    client.on('connect', function(connection) {
+    client.on('connect', function(conn) {
+	connection = conn;
         console.log('WebSocket Client Connected');
 
         connection.on('error', function(error) {
