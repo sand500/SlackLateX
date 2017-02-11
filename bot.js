@@ -172,7 +172,7 @@ function handleMessage(mObj, message) {
 
 }
 
-const latexWrapRegex = /^\$(.*)\$$|^`\s*\$(.*)\$\s*`$|^```\s*\$(.*)\$\s*```$/g;
+const latexWrapRegex = /^\$([\s\S]*)\$$|^`\s*\$([\s\S]*)\$\s*`$|^```\s*\$([\s\S]*)\$\s*```$/g;
 
 function getLatex(text) {
     let m;
@@ -188,7 +188,7 @@ function getLatex(text) {
         // The result can be accessed through the `m`-variable.
         m.forEach((match, groupIndex) => {
             if (groupIndex !== 0 && match !== undefined) {
-                laText = match;
+                laText = match.replace(/\n/g, " ");
                 return;
             }
         });
