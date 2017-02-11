@@ -50,7 +50,7 @@ function createWS(url) {
 
         connection.on('message', function(message) {
             if (message.type === 'utf8') {
-                handleMessage(JSON.parse(message.utf8Data));
+                handleMessage(JSON.parse(message.utf8Data),message);
             }
 
         });
@@ -85,7 +85,7 @@ function postLatex(channel,text) {
 }
 
 
-function handleMessage(mObj){
+function handleMessage(mObj,message){
 
     console.log("Received: '" + message.utf8Data + "'");
     console.log(mObj.type+"\n");
