@@ -1,0 +1,24 @@
+{
+  "name": "slacklatex",
+  "version": "1.0.0",
+  "description": "Bot that posts posts Latex pictures",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sand500/SlackLateX.git"
+  },
+  "author": "Sandeep Vijayasekar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sand500/SlackLateX/issues"
+  },
+  "homepage": "https://github.com/sand500/SlackLateX#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "request": "^2.88.0",
+    "websocket": "^1.0.28"
+  }
+}
