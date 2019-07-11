@@ -5,14 +5,15 @@
 
 ### Setup:
 1. Clone/download this repository.
-2. Install required modules in the project folder with:
-    ```
-    npm install fs
-    npm install request
-    npm install websocket
-    ```
+2. Install required modules in the project folder with `npm install`
 3. Create a `secret.txt` file in the bot directory and put your slack token in it.
 4. Start bot by running `node bot.js` or `nodejs bot.js`
+
+#### With docker
+1. Make sure docker is installed.
+2. Create a `secret.txt` file in the bot directory and put your slack token in it.
+3. run `docker build -t slacklatex .` to build the docker image
+4. run `docker run -n slackLaTeX --restart always slacklatex` to start the server
 
 ### Usage:
 
